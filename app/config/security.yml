@@ -1,0 +1,32 @@
+security:
+    encoders:
+        Dive\FrontBundle\Entity\User:
+            algorithm:        sha512
+
+    providers:
+        main:
+            entity:
+                class: Dive\FrontBundle\Entity\User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        # public_area:
+        #     pattern:   ^/
+        #     anonymous: true
+
+        secured_area:
+            pattern:   ^/
+            anonymous: true
+            form_login:
+                login_path: login
+                check_path: login_check
+                csrf_provider: form.csrf_provider
+            logout:
+                path:   logout
+                target: /
+
+    #access_control:
+    #- { path: ^/user/private, roles: ROLE_USER }

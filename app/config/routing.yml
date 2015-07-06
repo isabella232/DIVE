@@ -1,0 +1,25 @@
+frontwise_ajax_log:
+    resource: "@FrontwiseAjaxLogBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+dive_api:
+    resource: "@DiveAPIBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+dive:
+    resource: "@DiveFrontBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+login:
+    path:     /user/login
+    defaults: { _controller: DiveFrontBundle:Security:login }
+
+logout:
+    path:   /user/logout
+
+login_check:
+    path: /user/login_check
+    #defaults: { _controller: FrontwiseDiveBundle:Security:loginCheck }

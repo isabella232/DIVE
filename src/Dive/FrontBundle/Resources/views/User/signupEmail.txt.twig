@@ -1,0 +1,7 @@
+Hi {{ user.name }},
+
+Please open the following link to activate your DIVE user account.
+
+{{ url('dive_front_user_activate', { id: user.id, hash: user.hash } ) }}
+
+Your account enables you to create collections, and add comments to entities.

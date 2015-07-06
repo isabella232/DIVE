@@ -1,0 +1,12 @@
+<div id="flash_messages">
+{% for flashMessage in app.session.flashbag.get('error') %}
+    <div class="alert alert-danger" onclick="$(this).fadeTo(300,0, function(){ $(this).hide(); });">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="alert alert-info" onclick="$(this).fadeTo(300,0, function(){ $(this).hide(); });">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+</div>

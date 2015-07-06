@@ -1,0 +1,36 @@
+{% extends 'DiveFrontBundle::layout.html.twig' %}
+{% block content %}
+{% spaceless %}
+
+<div id="search" class="blackbox">
+	<div class="row">
+		<input type="text" placeholder="Start exploring!" id="search-field" />
+		<div id="search-cross"></div>
+		<div id="suggestions"></div>
+	</div>
+	<div class="row entity-Search">
+		<div id="search-filter"></div>
+	</div>
+</div>
+
+<div id="browser" class="blackbox">
+</div>
+
+<div id="gallery" class="clearfix blackbox">
+	<div id="main-ghost"></div>
+</div>
+
+<div id="popup">
+	<h1 class="title">
+	</h1>
+	<div class="body">
+	</div>
+	<div class="buttons">
+	</div>
+</div>
+
+
+
+{% include 'DiveFrontBundle:General:help.html.twig' %}
+{% endspaceless %}
+{% endblock %}

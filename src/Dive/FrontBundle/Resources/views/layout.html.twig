@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=768, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="shortcut icon" href="{{ asset('img/appicon/AppIcon57x57.png') }}">
+  <!-- Standard iPhone -->
+  <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('img/appicon/AppIcon57x57.png') }}" />
+  <!-- Retina iPhone -->
+  <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('img/appicon/AppIcon57x57@2x.png') }}" />
+  <!-- Standard iPad -->
+  <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('img/appicon/AppIcon72x72.png') }}" />
+  <!-- Retina iPad -->
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('img/appicon/AppIcon72x72@2x.png') }}" />
+
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+  <title>DIVE{% block title %}{% endblock %}</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:800,700,400,300' rel='stylesheet' type='text/css'>
+  {% block stylesheets %}
+  {#% stylesheets 'css/*' %}
+  <link rel="stylesheet" href="{{ asset_url }}" />
+  {% endstylesheets %#}
+  <link rel="stylesheet" href="{{ asset('css/0_reset.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/vendor/ui-lightness/jquery-ui.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/1_main.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/2_page.css' ) }}" />
+  <link rel="stylesheet" href="{{ asset('css/3_gallery.css' ) }}" />
+  <link rel="stylesheet" href="{{ asset('css/4_browser.css' ) }}" />
+  <link rel="stylesheet" href="{{ asset('css/5_search.css' ) }}" />
+  <link rel="stylesheet" href="{{ asset('css/config/Config-'~dataset~'.css' ) }}" />
+  {% endblock %}
+  <!--[if lt IE 9]>
+    <script src="{{ asset('js/vendor/html5shiv.js')}}"></script>
+    <script src="{{ asset('js/vendor/respond.min.js')}}"></script>
+  <![endif]-->
+
+
+
+
+
+  </head>
+  <body class="{% block bodyClass %}{% endblock %}">
+    {% block page %}
+    <div id="topbar">
+      <img src="{{ asset('img/dive-logo.png') }}" id="logo" onclick="document.location.href = '{{ app.request.baseUrl }}/{{dataset}}'; return false;">
+      <div id="log"></div>
+      <div id="collections-button"  class="button" title="Collections"></div>
+      <div id="user-button"  class="button" title="Registered users"></div>
+      <div id="help-button" class="button" title="Help"></div>
+    </div>
+    <div id="user-menu" class="top-menu"></div>
+    <div id="collection-menu" class="top-menu"></div>
+    {% include 'DiveFrontBundle::_flashMessages.html.twig' %}
+    <div id="header">
+      {% block header %}
+      {% endblock %}
+    </div>
+    <div id="content" class="{% block contentClass %}{% endblock %}">
+      {% block content %}{% endblock %}
+    </div>
+    <div id="footer">
+      {% block footer %}{% endblock %}
+    </div>
+    {% endblock %}
+
+    {# load config #}
+    <script type="text/javascript" src="{{ asset('js/config/Config-'~dataset~'.js') }}"></script>
+
+    {# set Globals #}
+    <script type="text/javascript">
+      function Global(){}
+
+      // load config
+      Global.config = new Config();
+
+      Global.touchSupport = 'ontouchstart' in document.documentElement;
+
+      Global.basePath = '{{ path("dive_front_browse_index") }}';
+      Global.dataset = '{{ dataset }}';
+
+      Global.imagePath = (Global.config.ImagePath ? Global.config.ImagePath : (Global.config.addBasePath ? Global.basePath : '') + 'images/search');
+
+      Global.APIPath = (Global.config.addBasePath ? Global.basePath : '') + Global.config.APIPath;
+      Global.allowAnimation = !Global.touchSupport || window.location.hash.indexOf('animate') > -1;
+      Global.europeanaKey = '{{ europeana_api_key }}';
+    </script>
+
+    {% block javascripts %}
+    {#% javascripts 'js/vendor/*' 'js/*' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %#}
+    {#% javascripts
+    'js/vendor/fastclick.js'
+    'js/vendor/jquery-1.10.2.min.js'
+    'js/vendor/jquery-ui-1.10.4.min.js'
+    'js/vendor/jquery.hammer-full.min.js'
+    'js/Helpers.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %#}
+
+    <script type="text/javascript" src="{{ asset('js/vendor/fastclick.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/vendor/jquery-1.10.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/vendor/jquery-ui-1.10.4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/vendor/jquery.hammer-full.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/vendor/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/vendor/velocity.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/frontwiseajaxlog/js/AjaxLog.js') }}"></script>
+    <script type="text/javascript">
+      AjaxLog.basePath = Global.basePath + AjaxLog.basePath;
+    </script>
+    <script type="text/javascript" src="{{ asset('js/Helpers.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/User.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Row.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Timeline.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Marker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Entity.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/DataEntity.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Visual.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Filter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/FilterAction.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Button.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Browser.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Data.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Details.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Collections.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/CollectionMenu.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Comments.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Europeana.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Share.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Search.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Gallery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Showcase.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Block.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Help.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Popup.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/HashPath.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Preload.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    {% endblock %}
+
+
+  </body>
+  </html>

@@ -1,0 +1,31 @@
+{% if error %}
+    <div class="error">{{ error.message }}</div>
+{% endif %}
+
+<form action="{{ path('login_check') }}" method="post" id="user-login">
+    <label for="username">E-mail address</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="_password" />
+
+    {#
+        If you want to control the URL the user
+        is redirected to on success (more details below)
+        <input type="hidden" name="_target_path" value="/account" />
+    #}
+    <input type="hidden" name="_csrf_token"
+        value="{{ csrf_token('authenticate') }}"
+    >
+
+     <input type="hidden" name="_target_path" value="dive_front_user_profile" />
+
+    <button type="submit">Login</button>
+    <a id="signup">Sign up</a>
+</form>
+
+
+
+{% if lostPassword is defined and lostPassword.visible %}
+<a id="request-password">Request new password</a>
+{% endif %}
