@@ -23,7 +23,7 @@ Installation follows standard symfony2 application deployment: http://symfony.co
 * Make sure the web server serves ONLY the `web` directory of the project. Doing otherwise is a security risk.
 * Setup the database
     * Create a database for the project (mysql is tested)
-    * Enter connection details into `app/parameters.yml`, clear `app/cache` directory afterwards.
+    * Enter connection details into `app/config/parameters.yml`, clear `app/cache` directory afterwards.
     * run `php app/console doctrine:schema:update --force --no-debug` in the project root to create all tables.
 * Install assets
 	* run `php app/console assets:install --symlink` in the project root to install assets with symlinks.
