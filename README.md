@@ -156,3 +156,6 @@ GET: `/vu/api/v2/entity/details?id=http%3A%2F%2Fpurl.org%2Fcollections%2Fnl%2Fdi
   ]
 }
 ```
+[![Build Status](https://travis-ci.org/CrowdTruth/DIVE.svg?branch=dev)](https://travis-ci.org/CrowdTruth/DIVE)
+[![Code Coverage](https://scrutinizer-ci.com/g/CrowdTruth/DIVE/badges/coverage.png?b=dev)](https://scrutinizer-ci.com/g/CrowdTruth/DIVE/?branch=dev)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/CrowdTruth/DIVE/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/CrowdTruth/DIVE/?branch=dev)
