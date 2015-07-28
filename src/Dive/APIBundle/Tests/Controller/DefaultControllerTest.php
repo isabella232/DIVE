@@ -6,9 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-	/**
-	 *  @group failing
-	 */
     public function testIndex()
     {
         $client = static::createClient();
