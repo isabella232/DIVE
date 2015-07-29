@@ -1,5 +1,8 @@
 filter:
-    excluded_paths: [*Test.php]
+    excluded_paths: 
+        - src/Dive/FrontBundle/Tests/*
+        - src/Dive/APIBundle/Tests/*
+        - src/Frontwise/AjaxLogBundle/Tests/*
 
 checks:
     php:
