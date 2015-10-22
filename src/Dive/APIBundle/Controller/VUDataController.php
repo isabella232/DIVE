@@ -348,13 +348,14 @@ private function getSearchData($type){
     WHERE {
       {
         { SELECT DISTINCT ?entity ?aevent WHERE {
-          { <'.$id.'> (owl:sameAs*|^owl:sameAs*|skos:exactMatch*|^skos:exactMatch*) ?same.
+          { <'.$id.'> (owl:sameAs*|^owl:sameAs*) ?same.
           ?same (dive:isRelatedTo|^dive:isRelatedTo) ?entity.
-        } UNION{
+        } UNION {  <'.$id.'> skos:exactMatch ?match.
+          ?same skos:exactMatch ?match.
+          ?same (dive:isRelatedTo|^dive:isRelatedTo) ?entity.
+        }UNION{
           <'.$id.'> (dive:isRelatedTo|^dive:isRelatedTo) ?entity.
-        } UNION{
-          <'.$id.'> (dive:depictedBy|^dive:depictedBy) ?entity.
-        } UNION{
+        }  UNION{
           <'.$id.'> (dive:isRelatedTo|^dive:isRelatedTo) ?aevent.
           ?aevent rdf:type sem:Event.
           ?aevent (dive:isRelatedTo|^dive:isRelatedTo) ?entity.
