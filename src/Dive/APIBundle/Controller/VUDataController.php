@@ -348,7 +348,7 @@ private function getSearchData($type){
     WHERE {
       {
         { SELECT DISTINCT ?entity ?aevent WHERE {
-          { <'.$id.'> (owl:sameAs*|^owl:sameAs*) ?same.
+          { <'.$id.'> (owl:sameAs*|^owl:sameAs*|skos:exactMatch*|^skos:exactMatch*) ?same.
           ?same (dive:isRelatedTo|^dive:isRelatedTo) ?entity.
         } UNION{
           <'.$id.'> (dive:isRelatedTo|^dive:isRelatedTo) ?entity.
