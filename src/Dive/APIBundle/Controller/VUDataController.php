@@ -331,11 +331,9 @@ private function getSearchData($type){
     $limit = intval($this->getRequest()->get('limit',850));
     $key = sha1($id.$offset.$limit);
 
-    // get data from cache
-    $data = $this->getCachedQuery('related',$key);
-
-
-    $fromCache = true;
+    // get data from cache -> VIC removed temp.
+    // $data = $this->getCachedQuery('related',$key);
+	//$fromCache = true;
 
 
     // create query
@@ -385,13 +383,13 @@ $this->checkDumpQuery($query);
 
 
 
-if (!$data){
+// VIC this too if (!$data){
 // get data
 
   $fromCache = false;
   $data = json_encode($this->convertToDiveData($this->getQuery($query)));
   $this->setCachedQuery('related', $key, $data);
-}
+ //}
 
 $timeEnd = microtime(true);
 
