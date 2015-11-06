@@ -223,7 +223,7 @@ private function getSearchData($type){
      //  $searchStr = substr($k,1);
      //   $exclude = '! ';
      // }
-      $keywordsList .= strtolower($searchStr)).'/i ';
+      $keywordsList .= strtolower($searchStr).'/i ';
     }
     break;
 	
