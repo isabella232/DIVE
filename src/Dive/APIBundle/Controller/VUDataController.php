@@ -69,7 +69,7 @@ class VUDataController extends BaseController
   // creates search query from keywordlist, offset and limit
 
   private function getSearchQuery($keywordsList, $offset, $limit){
-        // create query
+        /* create query OLD QUERY
    $query = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
    PREFIX dive: <http://purl.org/collections/nl/dive/>
    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
@@ -101,6 +101,29 @@ class VUDataController extends BaseController
   GROUP BY ?entity ?type OFFSET '.$offset.' LIMIT ' . $limit;
   return $query;
 }
+*/
+
+$query = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+			PREFIX dive: <http://purl.org/collections/nl/dive/>
+			PREFIX sem: <http://semanticweb.cs.vu.nl/2009/11/sem/>
+			PREFIX tpf: <http://cliopatria.swi-prolog.org/pf/text#>
+			PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+			SELECT DISTINCT ?entity ?type (SAMPLE(?asource) AS ?source) (SAMPLE(?aplaceholder) AS ?placeholder) (SAMPLE(?alabel) as ?label) (SAMPLE(?atimestamp) as ?timestamp) (SAMPLE(?adbpediaType) AS ?dbpediaType) WHERE {
+			   ?entity tpf:match (?labelpred "lubbers/i" ?alabel).
+			   ' . $keywordsList . '
+			   FILTER(?labelpred=rdfs:label || ?labelpred=dcterms:description || ?labelpred=dcterms:abstract).
+			   ?entity rdf:type ?type.
+			   FILTER(?type=sem:Actor || ?type = sem:Place || ?type = sem:Event || ?type = dive:Person || ?type = skos:Concept ||?type=dive:MediaObject)
+			   OPTIONAL { ?entity dive:depictedBy ?depict. ?depict dive:source ?asource. ?depict dive:placeholder ?aplaceholder. }
+			   OPTIONAL {?entity dive:source ?asource. ?entity dive:placeholder ?aplaceholder.}
+			   OPTIONAL { ?entity dive:hasTimeStamp ?atimestamp }
+			   OPTIONAL { ?entity dive:dbpediaType ?adbpediatype }
+
+			} 
+			GROUP BY ?entity ?type OFFSET '.$offset.' LIMIT ' . $limit;
+  return $query;
 
   // convert rawdata to dive entities
 
@@ -175,8 +198,10 @@ private function getSearchData($type){
     case 'search':
 
       // make keywords list
+	  
+	 /* OLD 
     $keywords = explode(' ', $keywords);
-
+    
     foreach($keywords as $k){
       $searchStr = $k;
       $exclude = '';
@@ -187,6 +212,21 @@ private function getSearchData($type){
       $keywordsList .= ' FILTER ('.$exclude.'(CONTAINS(lcase(str(?alabel)), "'. mysql_escape_string(strtolower($searchStr)).'") || CONTAINS(lcase(str(?adescription)), "'. mysql_escape_string(strtolower($searchStr)).'")))';
     }
     break;
+	*/
+	$keywords = explode(' ', $keywords);
+    
+    foreach($keywords as $k){
+      $searchStr = $k;
+	  // REMOVED NEGATION
+     // $exclude = ''; 
+     // if (substr($k,0,1) == '-'){
+     //  $searchStr = substr($k,1);
+     //   $exclude = '! ';
+     // }
+      $keywordsList .= strtolower($searchStr)).'/i ';
+    }
+    break;
+	
     case 'searchids':
 
     $keywords = explode(' ', $keywords);
