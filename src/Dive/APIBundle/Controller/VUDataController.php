@@ -195,7 +195,7 @@ private function getSearchData($type){
 
   switch($type){
     case 'search':
-
+		$keywordsList = 'lubbers';
       // make keywords list
 	  
 	 /* OLD 
@@ -212,6 +212,7 @@ private function getSearchData($type){
     }
     break;
 	*/
+	/* 
 	$keywords = explode(' ', $keywords);
     
     foreach($keywords as $k){
@@ -224,7 +225,7 @@ private function getSearchData($type){
      // }
       $keywordsList .= strtolower($searchStr).'/i ';
     }
-    break;
+    break;*/
 	
     case 'searchids':
 
