@@ -111,8 +111,7 @@ $query = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 			PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 			SELECT DISTINCT ?entity ?type (SAMPLE(?asource) AS ?source) (SAMPLE(?aplaceholder) AS ?placeholder) (SAMPLE(?alabel) as ?label) (SAMPLE(?atimestamp) as ?timestamp) (SAMPLE(?adbpediaType) AS ?dbpediaType) WHERE {
-			   ?entity tpf:match (?labelpred "lubbers/i" ?alabel).
-			   ' . $keywordsList . '
+			   ?entity tpf:match (?labelpred "' . $keywordsList . '" ?alabel).
 			   FILTER(?labelpred=rdfs:label || ?labelpred=dcterms:description || ?labelpred=dcterms:abstract).
 			   ?entity rdf:type ?type.
 			   FILTER(?type=sem:Actor || ?type = sem:Place || ?type = sem:Event || ?type = dive:Person || ?type = skos:Concept ||?type=dive:MediaObject)
