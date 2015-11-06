@@ -198,7 +198,6 @@ private function getSearchData($type){
 
   switch($type){
     case 'search':
-		$keywordsList = 'lubbers';
       // make keywords list
 	  
 	 /* OLD 
