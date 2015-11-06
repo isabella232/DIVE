@@ -114,9 +114,8 @@ class VUDataController extends BaseController
 
 	SELECT DISTINCT ?entity ?type (SAMPLE(?asource) AS ?source) (SAMPLE(?aplaceholder) AS ?placeholder) (SAMPLE(?alabel) as ?label) (SAMPLE(?atimestamp) as ?timestamp) (SAMPLE(?adbpediaType) AS ?dbpediaType) WHERE {
 	   ?entity tpf:match (?labelpred "' . $keywordsList . '" ?alabel).
-	   FILTER(?labelpred=rdfs:label || ?labelpred=dcterms:description || ?labelpred=dcterms:abstract).
 	   ?entity rdf:type ?type.
-	   FILTER(?type=sem:Actor || ?type = sem:Place || ?type = sem:Event || ?type = dive:Person || ?type = skos:Concept ||?type=dive:MediaObject)
+	   FILTER(?type=sem:Actor || ?type = sem:Place || ?type = sem:Event || ?type = dive:Person  ||?type=dive:MediaObject)
 	   OPTIONAL { ?entity dive:depictedBy ?depict. ?depict dive:source ?asource. ?depict dive:placeholder ?aplaceholder. }
 	   OPTIONAL {?entity dive:source ?asource. ?entity dive:placeholder ?aplaceholder.}
 	   OPTIONAL { ?entity dive:hasTimeStamp ?atimestamp }
