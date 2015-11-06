@@ -106,24 +106,24 @@ class VUDataController extends BaseController
 */
 
 	$query = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-				PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-				PREFIX dive: <http://purl.org/collections/nl/dive/>
-				PREFIX sem: <http://semanticweb.cs.vu.nl/2009/11/sem/>
-				PREFIX tpf: <http://cliopatria.swi-prolog.org/pf/text#>
-				PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+	PREFIX dive: <http://purl.org/collections/nl/dive/>
+	PREFIX sem: <http://semanticweb.cs.vu.nl/2009/11/sem/>
+	PREFIX tpf: <http://cliopatria.swi-prolog.org/pf/text#>
+	PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
-				SELECT DISTINCT ?entity ?type (SAMPLE(?asource) AS ?source) (SAMPLE(?aplaceholder) AS ?placeholder) (SAMPLE(?alabel) as ?label) (SAMPLE(?atimestamp) as ?timestamp) (SAMPLE(?adbpediaType) AS ?dbpediaType) WHERE {
-				   ?entity tpf:match (?labelpred "' . $keywordsList . '" ?alabel).
-				   FILTER(?labelpred=rdfs:label || ?labelpred=dcterms:description || ?labelpred=dcterms:abstract).
-				   ?entity rdf:type ?type.
-				   FILTER(?type=sem:Actor || ?type = sem:Place || ?type = sem:Event || ?type = dive:Person || ?type = skos:Concept ||?type=dive:MediaObject)
-				   OPTIONAL { ?entity dive:depictedBy ?depict. ?depict dive:source ?asource. ?depict dive:placeholder ?aplaceholder. }
-				   OPTIONAL {?entity dive:source ?asource. ?entity dive:placeholder ?aplaceholder.}
-				   OPTIONAL { ?entity dive:hasTimeStamp ?atimestamp }
-				   OPTIONAL { ?entity dive:dbpediaType ?adbpediatype }
+	SELECT DISTINCT ?entity ?type (SAMPLE(?asource) AS ?source) (SAMPLE(?aplaceholder) AS ?placeholder) (SAMPLE(?alabel) as ?label) (SAMPLE(?atimestamp) as ?timestamp) (SAMPLE(?adbpediaType) AS ?dbpediaType) WHERE {
+	   ?entity tpf:match (?labelpred "' . $keywordsList . '" ?alabel).
+	   FILTER(?labelpred=rdfs:label || ?labelpred=dcterms:description || ?labelpred=dcterms:abstract).
+	   ?entity rdf:type ?type.
+	   FILTER(?type=sem:Actor || ?type = sem:Place || ?type = sem:Event || ?type = dive:Person || ?type = skos:Concept ||?type=dive:MediaObject)
+	   OPTIONAL { ?entity dive:depictedBy ?depict. ?depict dive:source ?asource. ?depict dive:placeholder ?aplaceholder. }
+	   OPTIONAL {?entity dive:source ?asource. ?entity dive:placeholder ?aplaceholder.}
+	   OPTIONAL { ?entity dive:hasTimeStamp ?atimestamp }
+	   OPTIONAL { ?entity dive:dbpediaType ?adbpediatype }
 
-				} 
-				GROUP BY ?entity ?type OFFSET '.$offset.' LIMIT ' . $limit;
+	} 
+	GROUP BY ?entity ?type OFFSET '.$offset.' LIMIT ' . $limit;
 	  return $query;
 }
 
@@ -215,7 +215,7 @@ private function getSearchData($type){
     }
     break;
 	*/
-	/* 
+	
 	$keywords = explode(' ', $keywords);
     
     foreach($keywords as $k){
@@ -228,7 +228,7 @@ private function getSearchData($type){
      // }
       $keywordsList .= strtolower($searchStr).'/i ';
     }
-    break;*/
+    break;
 	
     case 'searchids':
 
