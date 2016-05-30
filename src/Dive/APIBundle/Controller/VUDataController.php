@@ -105,6 +105,8 @@ class VUDataController extends BaseController
 }
 */
 
+// added label line to fix weird KB labels
+
 	$query = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 	PREFIX dive: <http://purl.org/collections/nl/dive/>
@@ -113,9 +115,10 @@ class VUDataController extends BaseController
 	PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 	SELECT DISTINCT ?entity ?type (SAMPLE(?asource) AS ?source) (SAMPLE(?aplaceholder) AS ?placeholder) (SAMPLE(?alabel) as ?label) (SAMPLE(?atimestamp) as ?timestamp) (SAMPLE(?adbpediaType) AS ?dbpediaType) WHERE {
-	   ?entity tpf:match (?labelpred "' . $keywordsList . '" ?alabel).
+	   ?entity tpf:match (?labelpred "' . $keywordsList . '" ?alabel1).
 	   ?entity rdf:type ?type.
 	   FILTER(?type=sem:Actor || ?type = sem:Place || ?type = sem:Event || ?type = dive:Person  ||?type=dive:MediaObject)
+	   OPTIONAL {?entity rdfs:label ?alabel}.
 	   OPTIONAL { ?entity dive:depictedBy ?depict. ?depict dive:source ?asource. ?depict dive:placeholder ?aplaceholder. }
 	   OPTIONAL {?entity dive:source ?asource. ?entity dive:placeholder ?aplaceholder.}
 	   OPTIONAL { ?entity dive:hasTimeStamp ?atimestamp }
